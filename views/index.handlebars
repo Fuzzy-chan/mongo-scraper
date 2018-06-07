@@ -1,0 +1,18 @@
+ {{#each article}}
+<div class="card news">
+
+    <div class="card-header">
+        <h3>{{title}}</h3>
+    </div>
+    <div class="card-body">
+        <p>{{summary}}</p>
+        <a href={{link}} target="_blank">{{link}}</a>
+        <div>
+        <a href="/article/{{_id}}" class="btn btn-info" role="button">View Comments</a>
+        </div>
+    </div>
+
+</div>
+{{/each}}
+
+

@@ -1,0 +1,78 @@
+{{#each article}}
+<div class="card news">
+    <div class="card-header">
+        <h3>{{title}}</h3>
+    </div>
+    <div class="card-body">
+        <p>{{summary}}</p>
+        <a href={{link}} target="_blank">{{link}}</a>
+    </div>
+</div>
+{{#each comments}}
+<div class="card comment">
+    <div class="card-header">
+        <h5>{{author}}</h5>
+    </div>
+    <div class="card-body">
+        <p>{{content}}</p>
+    </div>
+    <button class="btn btn-primary delete" data-id="{{_id}}">Delete</button>
+</div>
+{{/each}} 
+<div class="card comment">
+    <div class="card-body">
+        <form>
+            <div class="form-group">
+                <label for="author">Name:</label>
+                <input type="text" class="form-control" id="author" default="guest">
+            </div>
+            <div class="form-group">
+                <label for="comment">Comment:</label>
+                <input type="text" class="form-control" id="comment">
+            </div>
+            <button class="btn btn-primary submit" data-id="{{_id}}">Submit</button>
+
+        </form>
+
+    </div>
+</div>
+
+
+
+{{/each}}
+
+<script>
+
+    $(".submit").on("click", function (event) {
+        event.preventDefault()
+        var thisId = $(this).attr("data-id");
+        console.log(thisId)
+
+        $.ajax({
+            method: "POST",
+            url: "/comment/" + thisId,
+            data: {
+                author: $("#author").val(),
+                body: $("#comment").val()
+            }
+        }).done(function (data) {
+            // Log the response
+            console.log(data);
+            // Empty the notes section
+            $("#author").empty();
+            location.reload()
+        });
+
+    });
+
+    $(".delete").on("click", function (event) {
+        event.preventDefault()
+        var thisId = $(this).attr("data-id");
+        $.ajax({
+            method: "POST",
+            url: "/remove/comment/" + thisId
+        }).done(function () {
+            location.reload()
+        })
+    })
+</script>
