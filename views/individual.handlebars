@@ -50,7 +50,7 @@
 
         $.ajax({
             method: "POST",
-            url: "/comment/" + thisId,
+            url: window.location.origin +"/comment/" + thisId,
             data: {
                 author: $("#author").val(),
                 body: $("#comment").val()
@@ -70,7 +70,7 @@
         var thisId = $(this).attr("data-id");
         $.ajax({
             method: "POST",
-            url: "/remove/comment/" + thisId
+            url: window.location.origin +"/remove/comment/" + thisId
         }).done(function () {
             location.reload()
         })
